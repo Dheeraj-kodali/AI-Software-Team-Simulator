@@ -1,6 +1,8 @@
-from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq
+import streamlit as st
 
-llm = ChatOllama(
-    model="llama3",
+llm = ChatGroq(
+    model="llama-3.3-70b-versatile",
+    groq_api_key=st.secrets["GROQ_API_KEY"],
     temperature=0.2
 )
