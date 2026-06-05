@@ -1,4 +1,5 @@
-from llm import llm
+from sdk.ai_sdk import AISDK
+
 
 def risk_agent(project, architect_output):
 
@@ -8,19 +9,37 @@ def risk_agent(project, architect_output):
     Project:
     {project}
 
-    Architecture:
+    Architecture Output:
+
     {architect_output}
 
-    Identify:
+    Analyze and Generate:
 
     1. Security Risks
     2. Scalability Risks
-    3. Cost Risks
-    4. Deployment Risks
+    3. Performance Risks
+    4. Cost Risks
+    5. Deployment Risks
+    6. Compliance Risks
+    7. Data Privacy Risks
+    8. Disaster Recovery Risks
 
-    Give recommendations.
+    For each risk provide:
+
+    - Description
+    - Impact
+    - Probability
+    - Mitigation Strategy
+
+    Maximum 1200 words.
+
+    Use:
+    - Clear Headings
+    - Bullet Points
+    - Professional Formatting
     """
 
-    response = llm.invoke(prompt)
-
-    return response.content
+    return AISDK.generate(
+        prompt,
+        "Risk Agent"
+    )

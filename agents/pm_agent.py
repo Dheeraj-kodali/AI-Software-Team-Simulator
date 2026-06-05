@@ -1,20 +1,24 @@
-from llm import llm
+from sdk.ai_sdk import AISDK
 
 def pm_agent(project):
 
     prompt = f"""
-    You are a Product Manager.
+    You are a Senior Product Manager.
 
     Project:
     {project}
 
     Generate:
 
-    1. Business requirements
-    2. Functional requirements
-    3. User stories
+    1. Business Requirements
+    2. Functional Requirements
+    3. User Stories
+    4. Success Criteria
+
+    Maximum 1200 words.
     """
 
-    response = llm.invoke(prompt)
-
-    return response.content
+    return AISDK.generate(
+        prompt,
+        "PM Agent"
+    )

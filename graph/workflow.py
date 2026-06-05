@@ -12,6 +12,7 @@ from agents.docs_agent import docs_agent
 from agents.risk_agent import risk_agent
 from agents.cost_agent import cost_agent
 from utils.save_output import save_output
+from sdk.ai_sdk import AISDK
 
 
 # Shared State
@@ -19,15 +20,30 @@ class ProjectState(TypedDict):
     project: str
 
     pm_output: str
+    pm_summary: str
+
     architect_output: str
+    architect_summary: str
+
     database_output: str
+    database_summary: str
+
     backend_output: str
+    backend_summary: str
+
     qa_output: str
+    qa_summary: str
+
     devops_output: str
+    devops_summary: str
+
     risk_output: str
+    risk_summary: str
+
     cost_output: str
+    cost_summary: str
+
     docs_output: str
-    
 
 
 # --------------------------
@@ -39,10 +55,13 @@ def pm_node(state):
 
     result = pm_agent(state["project"])
 
+    summary = AISDK.summarize(result)
+
     print("PM Agent Completed")
 
     return {
-        "pm_output": result
+        "pm_output": result,
+        "pm_summary": summary
     }
 
 
@@ -55,13 +74,16 @@ def architect_node(state):
 
     result = architect_agent(
         state["project"],
-        state["pm_output"]
+        state["pm_summary"]
     )
+
+    summary = AISDK.summarize(result)
 
     print("Architect Agent Completed")
 
     return {
-        "architect_output": result
+        "architect_output": result,
+        "architect_summary": summary
     }
 
 
@@ -74,13 +96,16 @@ def database_node(state):
 
     result = database_agent(
         state["project"],
-        state["architect_output"]
+        state["architect_summary"]
     )
+
+    summary = AISDK.summarize(result)
 
     print("Database Agent Completed")
 
     return {
-        "database_output": result
+        "database_output": result,
+        "database_summary": summary
     }
 
 
@@ -93,14 +118,17 @@ def backend_node(state):
 
     result = backend_agent(
         state["project"],
-        state["architect_output"],
-        state["database_output"]
+        state["architect_summary"],
+        state["database_summary"]
     )
+
+    summary = AISDK.summarize(result)
 
     print("Backend Agent Completed")
 
     return {
-        "backend_output": result
+        "backend_output": result,
+        "backend_summary": summary
     }
 
 
@@ -113,13 +141,16 @@ def qa_node(state):
 
     result = qa_agent(
         state["project"],
-        state["backend_output"]
+        state["backend_summary"]
     )
+
+    summary = AISDK.summarize(result)
 
     print("QA Agent Completed")
 
     return {
-        "qa_output": result
+        "qa_output": result,
+        "qa_summary": summary
     }
 
 
@@ -132,13 +163,16 @@ def devops_node(state):
 
     result = devops_agent(
         state["project"],
-        state["architect_output"]
+        state["architect_summary"]
     )
+
+    summary = AISDK.summarize(result)
 
     print("DevOps Agent Completed")
 
     return {
-        "devops_output": result
+        "devops_output": result,
+        "devops_summary": summary
     }
 
 # --------------------------
@@ -149,13 +183,16 @@ def risk_node(state):
 
     result = risk_agent(
         state["project"],
-        state["architect_output"]
+        state["architect_summary"]
     )
+
+    summary = AISDK.summarize(result)
 
     print("Risk Agent Completed")
 
     return {
-        "risk_output": result
+        "risk_output": result,
+        "risk_summary": summary
     }
 
 
@@ -167,13 +204,16 @@ def cost_node(state):
 
     result = cost_agent(
         state["project"],
-        state["architect_output"]
+        state["architect_summary"]
     )
+
+    summary = AISDK.summarize(result)
 
     print("Cost Agent Completed")
 
     return {
-        "cost_output": result
+        "cost_output": result,
+        "cost_summary": summary
     }
 
 
@@ -185,15 +225,15 @@ def docs_node(state):
     print("Running Docs Agent...")
 
     result = docs_agent(
-        state["project"],
-        state["pm_output"],
-        state["architect_output"],
-        state["database_output"],
-        state["backend_output"],
-        state["qa_output"],
-        state["devops_output"],
-        state["cost_output"],
-        state["risk_output"]
+    state["project"],
+    state["pm_summary"],
+    state["architect_summary"],
+    state["database_summary"],
+    state["backend_summary"],
+    state["qa_summary"],
+    state["devops_summary"],
+    state["cost_summary"],
+    state["risk_summary"]
     )
 
     print("Docs Agent Completed")

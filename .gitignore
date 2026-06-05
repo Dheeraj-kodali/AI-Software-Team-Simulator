@@ -3,3 +3,6 @@ __pycache__/
 .streamlit/secrets.toml
 outputs/
 *.pyc
+.env
+project_report.pdf
+

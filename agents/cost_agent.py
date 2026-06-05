@@ -1,4 +1,5 @@
-from llm import llm
+from sdk.ai_sdk import AISDK
+
 
 def cost_agent(project, architect_output):
 
@@ -8,20 +9,37 @@ def cost_agent(project, architect_output):
     Project:
     {project}
 
-    Architecture:
+    Architecture Output:
+
     {architect_output}
 
-    Estimate:
+    Generate:
 
-    1. Team Size
-    2. Development Time
-    3. Monthly Cloud Cost
-    4. Maintenance Cost
-    5. Project Complexity
+    1. Recommended Team Structure
+    2. Team Size Estimation
+    3. Development Timeline
+    4. Infrastructure Cost Estimation
+    5. Monthly Cloud Cost
+    6. Maintenance Cost
+    7. Third-Party Service Costs
+    8. Project Complexity Assessment
+    9. Budget Optimization Recommendations
 
-    Give concise output.
+    For each estimate provide:
+
+    - Assumptions
+    - Estimated Cost
+    - Justification
+
+    Maximum 1200 words.
+
+    Use:
+    - Clear Headings
+    - Bullet Points
+    - Professional Formatting
     """
 
-    response = llm.invoke(prompt)
-
-    return response.content
+    return AISDK.generate(
+        prompt,
+        "Cost Agent"
+    )
